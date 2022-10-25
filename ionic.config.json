@@ -1,0 +1,7 @@
+{
+  "name": "appwriteApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
