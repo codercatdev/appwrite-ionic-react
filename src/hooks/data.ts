@@ -52,7 +52,7 @@ export const useData = () => {
       return databases.createDocument(DB_ID, NOTES_COLLECTION_ID, 'unique()', {
         title,
       },     [
-        Permission.read(Role.users('verified')),
+        Permission.read(Role.users()),
         Permission.update(Role.user(userId)),
         Permission.delete(Role.user(userId))
       ])
