@@ -18,14 +18,14 @@ import {
 import { useAuth } from '../hooks/auth'
 import { logOutOutline, addOutline, personCircleOutline } from 'ionicons/icons'
 import { RealtimeUpdate, useData, Action } from '../hooks/data'
-import { useState } from 'react'
+import useState from 'react-usestateref'
 import Profile from './Profile'
 
 const Notes: React.FC = () => {
   const { signOutUser } = useAuth()
   const navigation = useIonRouter()
   const { getNotes, addNote, getNotesRealtime } = useData()
-  const [notes, setNotes] = useState<any[]>([])
+  const [notes, setNotes, notesRef] = useState<any[]>([])
 
   useIonViewWillEnter(async () => {
     const notes = await getNotes()
@@ -33,9 +33,11 @@ const Notes: React.FC = () => {
     setNotes(notes)
     getNotesRealtime((result: RealtimeUpdate) => {
       if (result.type === Action.add) {
-        setNotes([...notes, result.data])
+        setNotes([...notesRef.current, result.data])
       } else {
-        const filtered = notes.filter((note) => note.$id !== result.data.$id)
+        const filtered = notesRef.current.filter(
+          (note) => note.$id !== result.data.$id,
+        )
         setNotes(filtered)
       }
     })

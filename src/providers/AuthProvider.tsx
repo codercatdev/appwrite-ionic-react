@@ -21,10 +21,7 @@ export const AuthProvider = ({ children }: any) => {
   }, [])
 
   const loadUser = async () => {
-    console.log('load user...')
-
     const user = await getCurrentUser().catch(() => setLoading(false))
-    console.log('🚀 ~ file: AuthProvider.tsx ~ line 33 ~ loadUser ~ user', user)
     setAuthUser(user)
     setLoading(false)
   }

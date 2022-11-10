@@ -87,7 +87,7 @@ const Login: React.FC = () => {
                   type="email"
                   placeholder="john@doe.com"
                   {...register('email', {
-                    value: 'isaacout@gmail.com',
+                    value: 'saimon@devdactic.com',
                     required: true,
                   })}
                 ></IonInput>

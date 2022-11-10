@@ -28,14 +28,12 @@ import Details from './pages/Details'
 
 setupIonicReact()
 
-const App: React.FC = (props) => (
+const App: React.FC = () => (
   <AuthProvider>
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
-          <Route exact path="/">
-            <Login />
-          </Route>
+          <Route exact path="/" component={Login} />
           <Route exact path="/verify/:type" component={Verify} />
           <PrivateRoute exact path="/notes" component={Notes}></PrivateRoute>
           <PrivateRoute path="/notes/:id" component={Details}></PrivateRoute>

@@ -40,6 +40,7 @@ const Profile: React.FC<ProfilePageProps> = ({ trigger }) => {
         }
       }
     } catch (e) {
+      console.log('CATCH: ', e)
       // User has no image yet!
     }
 
@@ -75,7 +76,7 @@ const Profile: React.FC<ProfilePageProps> = ({ trigger }) => {
   return (
     <IonModal ref={modal} trigger={trigger}>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonButton onClick={() => modal.current?.dismiss()}>
               <IonIcon icon={closeOutline} />

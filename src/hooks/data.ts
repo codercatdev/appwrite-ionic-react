@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { avatars, client, databases, storage } from "../config/appwrite";
 import { AuthContext } from "../providers/AuthProvider";
 
-const DB_ID = '635fb2b9be68d706f108';
-const NOTES_COLLECTION_ID = '635fb2c212541074cd11';
-const BUCKET_ID = '635fcf23a2b8d7412c37';
+const DB_ID = '636b78018b4863d59cb3';
+const NOTES_COLLECTION_ID = '636b78044a140b6416e2';
+const BUCKET_ID = '636b998fb83e4044e623';
 
 export interface Note {
   title?: string;
@@ -52,7 +52,7 @@ export const useData = () => {
       return databases.createDocument(DB_ID, NOTES_COLLECTION_ID, 'unique()', {
         title,
       },     [
-        Permission.read(Role.users('verified')),
+        Permission.read(Role.users()),
         Permission.update(Role.user(userId)),
         Permission.delete(Role.user(userId))
       ])
@@ -80,43 +80,6 @@ export const useData = () => {
     }
   };
 
-  const uploadImage = async (file: any) => {
-    const userId = authUser.$id;
-
-    try {
-      return storage.createFile(BUCKET_ID, userId, file, [
-        Permission.read(Role.user(userId)),
-        Permission.update(Role.user(userId)),
-        Permission.delete(Role.user(userId))
-      ])
-    } catch(e) {
-      showAlert(`There was an error with your request: ${e}`);
-      return null;
-    }
-  }
-
-  const hasUserAvatar = async () => {
-    const userId = authUser.$id;
-
-    try {
-      return storage.getFile(BUCKET_ID, userId)
-    } catch(e) {
-      showAlert(`There was an error with your request: ${e}`);
-      return null;
-    }
-  }
-
-
-  const getUserAvatar = async () => {
-    const userId = authUser.$id;
-
-    try {
-      return storage.getFilePreview(BUCKET_ID, userId)
-    } catch(e) {
-      showAlert(`There was an error with your request: ${e}`);
-      return null;
-    }
-  }
 
   const getNotesRealtime = (func: (data: any) => void) => {    
     client.subscribe(`databases.${DB_ID}.collections.${NOTES_COLLECTION_ID}.documents`, (data) => {      
@@ -128,6 +91,43 @@ export const useData = () => {
     });
   }
 
+  const uploadImage = async (file: any) => {
+    const userId = authUser.$id;
+  
+    try {
+      return storage.createFile(BUCKET_ID, userId, file, [
+        Permission.read(Role.user(userId)),
+        Permission.update(Role.user(userId)),
+        Permission.delete(Role.user(userId))
+      ])
+    } catch(e) {
+      showAlert(`There was an error with your request: ${e}`);
+      return null;
+    }
+  }
+  
+  const hasUserAvatar = async () => {
+    const userId = authUser.$id;
+
+    try {
+      return storage.getFile(BUCKET_ID, userId)
+    } catch(e) {
+      return null;
+    }
+  }
+  
+  
+  const getUserAvatar = async () => {
+    const userId = authUser.$id;
+
+    try {
+      return storage.getFilePreview(BUCKET_ID, userId)
+    } catch(e) {
+      showAlert(`There was an error with your request: ${e}`);
+      return null;
+    }
+  }
+  
   const getInitials = () => {
     return avatars.getInitials(authUser.email, 200, 200);
   }
@@ -146,3 +146,4 @@ export const useData = () => {
     getInitials
   }
 };
+
