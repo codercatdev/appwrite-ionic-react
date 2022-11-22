@@ -1,8 +1,8 @@
 import { Account, Avatars, Client, Databases, Storage } from 'appwrite';
 
 const client = new Client()
-    .setEndpoint('http://localhost:7000/v1')
-    .setProject('635ea5a7c4cf314b2b29');
+    .setEndpoint(process.env.APPWRITE_ENDPOINT || 'http://localhost/v1')
+    .setProject(process.env.APPWRITE_PROJECT_ID || '635ea5a7c4cf314b2b29');
     
 const account = new Account(client);
 const databases = new Databases(client);

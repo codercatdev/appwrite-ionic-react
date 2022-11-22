@@ -8,9 +8,7 @@
             "$updatedAt": "2022-11-07T20:12:33.118+00:00",
             "$permissions": [
                 "create(\"users\")",
-                "read(\"users\")",
-                "update(\"users\")",
-                "delete(\"users\")"
+                "read(\"users\")"
             ],
             "databaseId": "635fb2b9be68d706f108",
             "name": "notes",
